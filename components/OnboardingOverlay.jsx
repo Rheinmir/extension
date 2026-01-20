@@ -27,7 +27,7 @@ const OnboardingOverlay = ({ isOpen, onClose }) => {
         <div className="p-8 md:p-12 overflow-y-auto">
           <div className="flex justify-between items-center mb-10">
             <h3 className="text-3xl font-bold tracking-tight italic">
-              Getting Started
+              Hướng dẫn cài đặt
             </h3>
             <button
               onClick={onClose}
@@ -41,11 +41,12 @@ const OnboardingOverlay = ({ isOpen, onClose }) => {
             {/* Step 1 */}
             <StepItem
               number={1}
-              title="Tải và Giải nén"
+              title="Tải & Giải nén"
               description={
                 <>
-                  Chọn <b>Tải về</b> từ menu icon. Sau đó giải nén file vào thư
-                  mục yêu thích.
+                  Bấm nút <b>Download</b> (icon mũi tên) trên thẻ tiện ích để
+                  tải về file <code>.zip</code>. Sau đó{" "}
+                  <b>giải nén (Extract)</b> file này ra một thư mục.
                 </>
               }
               illustration={<DownloadIllustration />}
@@ -58,8 +59,12 @@ const OnboardingOverlay = ({ isOpen, onClose }) => {
                   <span className="w-6 h-6 rounded-full bg-black text-white text-xs flex items-center justify-center font-bold">
                     2
                   </span>
-                  <h4 className="font-bold text-lg">Developer Mode</h4>
+                  <h4 className="font-bold text-lg">Bật Developer Mode</h4>
                 </div>
+                <p className="text-gray-500 text-sm mb-3">
+                  Truy cập trang quản lý tiện ích và bật chế độ nhà phát triển ở
+                  góc phải màn hình.
+                </p>
                 <div
                   onClick={copyToClipboard}
                   className="group relative flex items-center justify-between bg-blue-50/50 border border-blue-100 px-4 py-3 rounded-xl cursor-pointer hover:bg-blue-50 transition-colors"
@@ -84,10 +89,12 @@ const OnboardingOverlay = ({ isOpen, onClose }) => {
             {/* Step 3 */}
             <StepItem
               number={3}
-              title="Load Unpacked"
+              title="Tải tiện ích lên"
               description={
                 <>
-                  Nhấn <b>"Load unpacked"</b> và chọn thư mục extension của bạn.
+                  Bấm nút <b>Load unpacked</b> (hoặc "Tải tiện ích đã giải nén")
+                  ở góc trái. Chọn đúng <b>thư mục</b> bạn vừa giải nén ở Bước
+                  1.
                 </>
               }
               illustration={<LoadUnpackedIllustration />}
