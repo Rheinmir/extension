@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "FB Video Downloader",
+  "version": "4.0",
+  "description": "Tải video và Reels từ Facebook",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "downloads",
+    "cookies",
+    "tabs"
+  ],
+  "host_permissions": [
+    "*://*.facebook.com/*",
+    "*://*.fbcdn.net/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "web_accessible_resources": [{
+    "resources": ["video_extractor.js"],
+    "matches": ["*://*.facebook.com/*"]
+  }],
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}

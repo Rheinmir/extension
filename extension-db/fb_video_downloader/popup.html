@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FB Video Downloader</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <!-- Header - Simplified macOS style without traffic lights -->
+    <header class="header">
+      <div class="logo">
+        <span class="logo-icon">📥</span>
+        <h1>FB Video Downloader</h1>
+      </div>
+      <span class="version">v4.0</span>
+    </header>
+
+    <!-- Main Content -->
+    <main class="content">
+      <!-- Status Card -->
+      <div class="card status-card">
+        <div class="status-icon" id="status-icon">🎬</div>
+        <div class="status-text" id="url-display">Đang tải...</div>
+      </div>
+
+      <!-- Download Button -->
+      <button class="btn-download" id="extract-btn">
+        <span class="btn-icon-inner">📥</span>
+        <span>Tải Video</span>
+      </button>
+
+      <!-- Result Area -->
+      <div class="result-container" id="result"></div>
+
+      <!-- Instructions Card -->
+      <div class="card instructions-card">
+        <h3>💡 Hướng dẫn</h3>
+        <ol>
+          <li>Mở video/reel trên Facebook</li>
+          <li>Nhấn nút "Tải Video"</li>
+          <li>Video sẽ tự động tải về</li>
+        </ol>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>React Fiber + Graph API</p>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
