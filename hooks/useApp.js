@@ -1,6 +1,4 @@
 import { useState, useEffect, useCallback } from "react";
-import JSZip from "jszip";
-import { saveAs } from "file-saver";
 import { getExtensionById } from "../data/extensions";
 
 /**
