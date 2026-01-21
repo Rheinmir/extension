@@ -24,7 +24,7 @@ const OnboardingOverlay = ({ isOpen, onClose }) => {
         onClick={onClose}
       />
       <div className="relative bg-white w-full max-w-2xl rounded-[3rem] shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-500 max-h-[90vh] flex flex-col">
-        <div className="p-8 md:p-12 overflow-y-auto scrollbar-mac">
+        <div className="p-8 md:p-12 overflow-y-auto [&::-webkit-scrollbar]:w-[6px] [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-black/5 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-black/10">
           <div className="flex justify-between items-center mb-10">
             <h3 className="text-3xl font-bold tracking-tight italic">
               Hướng dẫn cài đặt
