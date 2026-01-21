@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevPower Toolkit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <!-- Header - simplified without traffic lights -->
+    <header class="header">
+      <h1 class="app-title">DevPower Toolkit</h1>
+      <button class="btn-icon" id="help-btn" data-tooltip="Help">?</button>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="content">
+      <!-- Settings Tab -->
+      <section id="settings" class="tab-content active">
+        <div class="card">
+          <h3>Quick Actions</h3>
+          <div class="grid-2">
+            <button class="btn-action" id="open-settings">
+              <span class="icon">⚙️</span>
+              <span>Settings</span>
+            </button>
+            <button class="btn-action" id="open-extensions">
+              <span class="icon">🧩</span>
+              <span>Extensions</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Site Controls</h3>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <span class="toggle-label">JavaScript</span>
+              <span class="toggle-hint">Toggle JS for this site</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="toggle-js">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <button class="btn-danger" id="clear-cache">
+            <span class="icon">🗑️</span> Clear Site Cache
+          </button>
+        </div>
+      </section>
+
+      <!-- Tools Tab -->
+      <section id="tools" class="tab-content">
+        <div class="card">
+          <h3>🎨 Color Picker</h3>
+          <div class="color-display" id="color-display">
+            <span class="color-text">Click to pick color</span>
+          </div>
+          <button class="btn-primary" id="pick-color">
+            <span class="icon">🎯</span> Pick from Screen
+          </button>
+        </div>
+
+        <div class="card">
+          <h3>🔤 WhatFont</h3>
+          <div class="font-result" id="font-result">
+            <span class="placeholder">Activate to detect fonts</span>
+          </div>
+          <button class="btn-primary" id="whatfont-btn">
+            <span class="icon">Aa</span> Detect Fonts
+          </button>
+        </div>
+
+        <div class="card">
+          <h3>🎨 CSS Viewer</h3>
+          <div class="css-result" id="css-result">
+            <span class="placeholder">Hover to inspect element styles</span>
+          </div>
+          <button class="btn-primary" id="css-viewer-btn">
+            <span class="icon">{}</span> Inspect Styles
+          </button>
+        </div>
+
+        <div class="card">
+          <h3>📏 Page Ruler</h3>
+          <div class="ruler-info" id="ruler-info">
+            <span class="placeholder">Click to measure elements</span>
+          </div>
+          <button class="btn-primary" id="ruler-btn">
+            <span class="icon">📐</span> Start Measuring
+          </button>
+        </div>
+
+        <div class="card">
+          <h3>🔗 Link Checker</h3>
+          <div class="link-result" id="link-result">
+            <span class="placeholder">Scan page for broken links</span>
+          </div>
+          <button class="btn-primary" id="link-checker-btn">
+            <span class="icon">🔍</span> Check Links
+          </button>
+        </div>
+
+        <div class="card">
+          <h3>🔍 Tech Stack</h3>
+          <div class="tech-badges" id="tech-list">
+            <span class="placeholder">Click scan to detect...</span>
+          </div>
+          <button class="btn-secondary" id="scan-tech">
+            <span class="icon">🔍</span> Scan Page
+          </button>
+        </div>
+      </section>
+
+      <!-- Develop Tab -->
+      <section id="develop" class="tab-content">
+        <div class="card">
+          <h3>📐 Window Resizer</h3>
+          <div class="size-presets">
+            <button class="size-btn" data-width="375" data-height="667">
+              <span class="size-icon">📱</span>
+              <span class="size-name">iPhone SE</span>
+              <span class="size-dim">375×667</span>
+            </button>
+            <button class="size-btn" data-width="390" data-height="844">
+              <span class="size-icon">📱</span>
+              <span class="size-name">iPhone 14</span>
+              <span class="size-dim">390×844</span>
+            </button>
+            <button class="size-btn" data-width="768" data-height="1024">
+              <span class="size-icon">📱</span>
+              <span class="size-name">iPad</span>
+              <span class="size-dim">768×1024</span>
+            </button>
+            <button class="size-btn" data-width="1280" data-height="800">
+              <span class="size-icon">💻</span>
+              <span class="size-name">Laptop</span>
+              <span class="size-dim">1280×800</span>
+            </button>
+            <button class="size-btn" data-width="1920" data-height="1080">
+              <span class="size-icon">🖥️</span>
+              <span class="size-name">Desktop</span>
+              <span class="size-dim">1920×1080</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>🕐 Timestamp Converter</h3>
+          <input type="text" id="timestamp-input" class="input-field" placeholder="Unix timestamp or date string...">
+          <div class="btn-group" style="margin-top: 8px;">
+            <button class="btn-secondary" id="timestamp-to-date">To Date</button>
+            <button class="btn-secondary" id="timestamp-now">Now</button>
+          </div>
+          <div class="output-area" id="timestamp-output"></div>
+        </div>
+
+
+
+        <div class="card">
+          <h3>📱 QR Code Generator</h3>
+          <input type="text" id="qr-input" class="input-field" placeholder="Enter URL or text...">
+          <div class="btn-group" style="margin-top: 8px;">
+            <button class="btn-primary" id="qr-generate">Generate QR</button>
+            <button class="btn-secondary" id="qr-current-url">Current URL</button>
+          </div>
+          <div class="qr-display" id="qr-display"></div>
+        </div>
+
+        <div class="card">
+          <h3>🔧 Base64 Encoder/Decoder</h3>
+          <textarea id="base64-input" class="input-area" placeholder="Enter text to encode/decode..."></textarea>
+          <div class="btn-group">
+            <button class="btn-secondary" id="base64-encode">Encode</button>
+            <button class="btn-secondary" id="base64-decode">Decode</button>
+          </div>
+          <div class="output-area" id="base64-output"></div>
+        </div>
+
+        <div class="card">
+          <h3>🔗 URL Parser</h3>
+          <input type="text" id="url-input" class="input-field" placeholder="Paste URL here...">
+          <button class="btn-secondary" id="parse-url" style="margin-top: 8px;">Parse URL</button>
+          <div class="url-result" id="url-result"></div>
+        </div>
+
+        <div class="card">
+          <h3>📝 Fake Filler</h3>
+          <p class="card-desc">Auto-fill all form fields on the current page with random test data.</p>
+          <button class="btn-primary" id="fake-fill-btn">
+            <span class="icon">✨</span> Fill All Forms
+          </button>
+        </div>
+
+        <div class="card">
+          <h3>📄 JSON Formatter</h3>
+          <textarea id="json-input" class="input-area" placeholder="Paste JSON here..."></textarea>
+          <button class="btn-primary" id="format-json">Format & Validate</button>
+          <pre class="json-output" id="json-output"></pre>
+        </div>
+      </section>
+
+      <!-- Screenshot Tools (Updated) -->
+      <section id="screenshot-tab" class="tab-content">
+         <div class="card">
+          <h3>📷 Smart Screenshot</h3>
+          <p class="card-desc">Capture and edit before saving.</p>
+          <div class="grid-2">
+            <button class="btn-primary" id="screenshot-full">
+              <span class="icon">📸</span> Full Page
+            </button>
+            <button class="btn-secondary" id="screenshot-region">
+              <span class="icon">✂️</span> Region & Edit
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Media Grabber Tab -->
+      <section id="media" class="tab-content">
+        <div class="card">
+          <h3>📥 Media Grabber</h3>
+           <p class="card-desc">Download images and videos from this page.</p>
+           <div class="grid-3" style="margin-bottom: 10px;">
+             <button class="btn-action" id="scan-media-btn">
+               <span class="icon">🔎</span>
+               <span>Scan</span>
+             </button>
+             <button class="btn-action" id="save-all-media-btn" disabled>
+               <span class="icon">⬇️</span>
+               <span>Save All</span>
+             </button>
+             <button class="btn-action" id="save-selected-media-btn" disabled>
+               <span class="icon">☑️</span>
+               <span>Selected</span>
+             </button>
+           </div>
+           <div class="media-controls hidden" id="media-controls" style="margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+             <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 12px;">
+               <input type="checkbox" id="select-all-media">
+               <span>Select All</span>
+             </label>
+             <span id="selected-count" style="font-size: 11px; color: #888;">0 selected</span>
+           </div>
+           <div class="media-list" id="media-list">
+             <span class="placeholder">Click scan to find media...</span>
+           </div>
+        </div>
+      </section>
+
+      <!-- Wellness Tab -->
+      <section id="wellness" class="tab-content">
+        <div class="card">
+          <h3>🧘 Wellness Center</h3>
+          <p class="card-desc">Healthy habits for long coding sessions.</p>
+          
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <span class="toggle-label">💧 Drink Water</span>
+              <span class="toggle-hint">Remind every 45 mins</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="toggle-water">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <span class="toggle-label">🧘 Posture Check</span>
+              <span class="toggle-hint">Remind every 30 mins</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="toggle-posture">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <span class="toggle-label">👀 20-20-20 Rule</span>
+              <span class="toggle-hint">Look away every 20 mins</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="toggle-vision">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- To-Do Tab -->
+      <section id="todo" class="tab-content">
+        <div class="card">
+          <h3>📋 Quick Tasks</h3>
+          <div class="todo-input-group">
+            <input type="text" id="new-todo" class="input-field" placeholder="Add a new task...">
+            <button class="btn-primary btn-add" id="add-todo">+</button>
+          </div>
+          <ul id="todo-list" class="todo-list"></ul>
+        </div>
+      </section>
+    </main>
+
+    <!-- Dock Navigation -->
+    <nav class="dock">
+      <button class="dock-item active" data-target="settings" data-tooltip="Settings">
+        <span class="dock-icon">⚙️</span>
+      </button>
+      <button class="dock-item" data-target="tools" data-tooltip="Tools">
+        <span class="dock-icon">🎨</span>
+      </button>
+      <button class="dock-item" data-target="develop" data-tooltip="Develop">
+        <span class="dock-icon">🛠️</span>
+      </button>
+      <button class="dock-item" data-target="screenshot-tab" data-tooltip="Screenshot">
+        <span class="dock-icon">📷</span>
+      </button>
+       <button class="dock-item" data-target="media" data-tooltip="Media">
+        <span class="dock-icon">📥</span>
+      </button>
+      <button class="dock-item" data-target="wellness" data-tooltip="Wellness">
+        <span class="dock-icon">🧘</span>
+      </button>
+      <button class="dock-item" data-target="todo" data-tooltip="Tasks">
+        <span class="dock-icon">📋</span>
+      </button>
+    </nav>
+
+    <!-- Help Bubble -->
+    <div class="bubble-popup hidden" id="help-popup">
+      <div class="bubble-arrow"></div>
+      <div class="bubble-content">
+        <h4>DevPower Toolkit v3.1</h4>
+        <ul>
+          <li><strong>Settings:</strong> Chrome settings & JS toggle</li>
+          <li><strong>Tools:</strong> Colors, Fonts, CSS, Ruler, Links</li>
+          <li><strong>Develop:</strong> Resize, Timestamp, QR, Screenshot</li>
+          <li><strong>Tasks:</strong> Quick to-do list</li>
+        </ul>
+        <button class="btn-text" id="close-help">Got it!</button>
+      </div>
+      </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

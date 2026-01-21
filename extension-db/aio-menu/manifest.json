@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "DevPower Toolkit",
+  "version": "3.1",
+  "description": "All-in-one developer toolkit: Color Picker, WhatFont, CSS Viewer, Page Ruler, Tech Stack, QR Generator, Screenshot, Timestamp Converter, Link Checker, and more.",
+
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "contentSettings",
+    "browsingData",
+    "storage",
+    "tabs",
+    "windows",
+    "clipboardWrite",
+    "alarms",
+    "notifications",
+    "downloads"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "DevPower Toolkit"
+  },
+  "icons": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}
