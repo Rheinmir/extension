@@ -49,7 +49,7 @@ export const useDownload = () => {
   const [downloadingId, setDownloadingId] = useState(null);
   const [downloadError, setDownloadError] = useState(null);
 
-  const startDownload = useCallback(async (id) => {
+  const startDownload = useCallback((id) => {
     const extension = getExtensionById(id);
     if (!extension) {
       setDownloadError("Extension not found");
@@ -59,39 +59,18 @@ export const useDownload = () => {
     setDownloadingId(id);
     setDownloadError(null);
 
-    try {
-      // In a real app, this would fetch files from server
-      // For now, we'll create a simulated download
-      // The actual implementation would need a backend to serve the files
+    // Simulate small delay for UX
+    setTimeout(() => {
+      // Create a temporary link to trigger download
+      const link = document.createElement("a");
+      link.href = `/extensions/${id}.zip`;
+      link.download = `${extension.name.replace(/\s+/g, "_")}_v${extension.version}.zip`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
 
-      // Simulate download delay
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      // Create download link for the folder
-      // In production, this could be:
-      // 1. A pre-zipped file on CDN
-      // 2. Server-side ZIP generation
-      // 3. Or direct folder download if supported
-
-      const downloadUrl = `/api/download/${extension.id}`;
-
-      // For demo, we'll show a message or trigger actual download
-      console.log(
-        `Downloading extension: ${extension.name} from ${extension.folderPath}`,
-      );
-
-      // Trigger download (in production this would be a real API call)
-      // window.location.href = downloadUrl;
-
-      alert(
-        `Extension "${extension.name}" sẵn sàng tải!\n\nĐường dẫn: ${extension.folderPath}`,
-      );
-    } catch (error) {
-      console.error("Download error:", error);
-      setDownloadError(error.message);
-    } finally {
       setDownloadingId(null);
-    }
+    }, 1000);
   }, []);
 
   return { downloadingId, downloadError, startDownload };

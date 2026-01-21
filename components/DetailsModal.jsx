@@ -50,16 +50,6 @@ const DetailsModal = ({ extension, onClose, onDownload }) => {
                 <p className="text-sm font-bold">{extension.size}</p>
               </div>
             </div>
-            {extension.folderPath && (
-              <div className="mt-4 p-3 bg-gray-50 rounded-xl">
-                <p className="text-[10px] uppercase tracking-wider text-gray-400 font-bold mb-1">
-                  Đường dẫn
-                </p>
-                <code className="text-xs text-blue-600 font-mono">
-                  {extension.folderPath}
-                </code>
-              </div>
-            )}
           </div>
 
           <button
