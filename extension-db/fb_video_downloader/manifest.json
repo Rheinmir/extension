@@ -12,7 +12,9 @@
   ],
   "host_permissions": [
     "*://*.facebook.com/*",
-    "*://*.fbcdn.net/*"
+    "*://*.fbcdn.net/*",
+    "*://*.youtube.com/*",
+    "*://co.wuk.sh/*"
   ],
   "action": {
     "default_popup": "popup.html",

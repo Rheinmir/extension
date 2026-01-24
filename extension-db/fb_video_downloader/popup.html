@@ -12,36 +12,67 @@
     <header class="header">
       <div class="logo">
         <span class="logo-icon">📥</span>
-        <h1>FB Video Downloader</h1>
+        <h1>Video Downloader</h1>
       </div>
-      <span class="version">v4.0</span>
+      <!-- Tab Navigation -->
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="facebook">Facebook</button>
+        <button class="tab-btn" data-tab="youtube">YouTube</button>
+      </div>
     </header>
 
     <!-- Main Content -->
     <main class="content">
-      <!-- Status Card -->
-      <div class="card status-card">
-        <div class="status-icon" id="status-icon">🎬</div>
-        <div class="status-text" id="url-display">Đang tải...</div>
+      <!-- Facebook Tab -->
+      <div id="tab-facebook" class="tab-content active">
+        <div class="card status-card">
+          <div class="status-icon" id="fb-status-icon">🎬</div>
+          <div class="status-text" id="url-display">Đang tải...</div>
+        </div>
+
+        <button class="btn-download" id="extract-btn">
+          <span class="btn-icon-inner">📥</span>
+          <span>Tải Video FB</span>
+        </button>
+
+        <div class="result-container" id="result"></div>
+
+        <div class="card instructions-card">
+          <h3>💡 Hướng dẫn Facebook</h3>
+          <ol>
+            <li>Mở video/reel trên Facebook</li>
+            <li>Nhấn nút "Tải Video FB"</li>
+            <li>Video sẽ tự động tải về</li>
+          </ol>
+        </div>
       </div>
 
-      <!-- Download Button -->
-      <button class="btn-download" id="extract-btn">
-        <span class="btn-icon-inner">📥</span>
-        <span>Tải Video</span>
-      </button>
+      <!-- YouTube Tab -->
+      <div id="tab-youtube" class="tab-content">
+        <div class="card status-card">
+          <div class="status-icon" id="yt-status-icon">📺</div>
+          <div class="status-text" id="yt-status-text">Mở YouTube để tải</div>
+        </div>
 
-      <!-- Result Area -->
-      <div class="result-container" id="result"></div>
+        <div class="input-group">
+          <input type="text" id="yt-input" placeholder="Dán link YouTube vào đây..." class="input-field">
+        </div>
 
-      <!-- Instructions Card -->
-      <div class="card instructions-card">
-        <h3>💡 Hướng dẫn</h3>
-        <ol>
-          <li>Mở video/reel trên Facebook</li>
-          <li>Nhấn nút "Tải Video"</li>
-          <li>Video sẽ tự động tải về</li>
-        </ol>
+        <button class="btn-download" id="yt-download-btn">
+          <span class="btn-icon-inner">⬇️</span>
+          <span>Tải Video YouTube</span>
+        </button>
+
+        <div class="result-container" id="yt-result"></div>
+
+        <div class="card instructions-card">
+          <h3>💡 Hướng dẫn YouTube</h3>
+          <ol>
+            <li>Mở video trên YouTube</li>
+            <li>Extension tự động lấy link</li>
+            <li>Nhấn nút để tải về</li>
+          </ol>
+        </div>
       </div>
     </main>
 
