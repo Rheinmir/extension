@@ -1,6 +1,6 @@
 /**
  * FB & YT Video Downloader - Popup v10
- * Supports Facebook (Graph API) and YouTube (Cobalt API)
+ * Supports Facebook (Graph API), YouTube, and X (Cobalt API)
  */
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -19,6 +19,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   const ytResultDiv = document.getElementById("yt-result");
   const ytStatusText = document.getElementById("yt-status-text");
 
+  // Twitter Elements
+  const twDownloadBtn = document.getElementById("tw-download-btn");
+  const twInput = document.getElementById("tw-input");
+  const twResultDiv = document.getElementById("tw-result");
+  const twStatusText = document.getElementById("tw-status-text");
+
   // === State ===
   let currentTab = "facebook";
 
@@ -31,6 +37,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     switchTab("youtube");
     ytInput.value = currentUrl;
     ytStatusText.innerHTML = `<span style="color:#4CAF50">✓</span> Đã phát hiện link YouTube`;
+  } else if (
+    currentUrl.includes("twitter.com") ||
+    currentUrl.includes("x.com")
+  ) {
+    switchTab("twitter");
+    twInput.value = currentUrl;
+    twStatusText.innerHTML = `<span style="color:#4CAF50">✓</span> Đã phát hiện link X/Twitter`;
   } else {
     // Default to FB check
     checkFacebookStatus(currentUrl);
@@ -133,21 +146,31 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   // === YouTube Logic ===
-  ytDownloadBtn.addEventListener("click", async () => {
-    const url = ytInput.value.trim();
+  ytDownloadBtn.addEventListener("click", () =>
+    handleCobaltDownload(ytInput, ytDownloadBtn, ytResultDiv, "YouTube"),
+  );
+
+  // === Twitter Logic ===
+  twDownloadBtn.addEventListener("click", () =>
+    handleCobaltDownload(twInput, twDownloadBtn, twResultDiv, "X/Twitter"),
+  );
+
+  // === Cobalt API Handler (YouTube & X) ===
+  async function handleCobaltDownload(inputEl, btnEl, resultDiv, platformName) {
+    const url = inputEl.value.trim();
     if (!url) {
-      showError(ytResultDiv, "Vui lòng nhập link video");
+      showError(resultDiv, "Vui lòng nhập link video");
       return;
     }
 
-    ytDownloadBtn.disabled = true;
-    ytDownloadBtn.innerHTML = '<div class="spinner"></div> Đang xử lý...';
-    ytResultDiv.innerHTML = "";
+    const originalBtnText = btnEl.innerHTML;
+    btnEl.disabled = true;
+    btnEl.innerHTML = '<div class="spinner"></div> Đang xử lý...';
+    resultDiv.innerHTML = "";
 
     try {
-      showProgress(ytResultDiv, "Đang lấy link tải...");
+      showProgress(resultDiv, "Đang lấy link tải...");
 
-      // Use Cobalt API
       const response = await fetch("https://co.wuk.sh/api/json", {
         method: "POST",
         headers: {
@@ -167,26 +190,30 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
 
       if (data.url) {
-        showSuccess(ytResultDiv, "Đã lấy được link!");
-        await downloadVideo(data.url);
+        showSuccess(resultDiv, "Đã lấy được link!");
+        await downloadVideo(data.url, resultDiv); // Pass resultDiv to downloadVideo helper
       } else if (data.picker) {
-        // Handle picker case if needed, but for simplicity just take audio? No, usually picker is for multiple streams.
-        // Let's try to get the first one or error out for this simple version
-        showError(ytResultDiv, "API trả về nhiều định dạng, vui lòng thử lại.");
+        showError(resultDiv, "API trả về nhiều định dạng, vui lòng thử lại.");
       }
     } catch (error) {
       console.error(error);
-      showError(ytResultDiv, "Lỗi: " + error.message);
+      showError(resultDiv, "Lỗi: " + error.message);
     }
 
-    ytDownloadBtn.disabled = false;
-    ytDownloadBtn.innerHTML = "<span>⬇️</span> Tải Video YouTube";
-  });
+    btnEl.disabled = false;
+    btnEl.innerHTML = originalBtnText;
+  }
 
   // === Common Helpers ===
-  async function downloadVideo(url) {
-    // Determine which result div to use based on active tab
-    const targetDiv = currentTab === "facebook" ? fbResultDiv : ytResultDiv;
+  async function downloadVideo(url, specificResultDiv = null) {
+    // Determine which result div to use based on active tab if not specified
+    let targetDiv = specificResultDiv;
+    if (!targetDiv) {
+      if (currentTab === "facebook") targetDiv = fbResultDiv;
+      else if (currentTab === "twitter") targetDiv = twResultDiv;
+      else targetDiv = ytResultDiv;
+    }
+
     showProgress(targetDiv, "Đang tải xuống...");
 
     const response = await chrome.runtime.sendMessage({

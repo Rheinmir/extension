@@ -326,15 +326,18 @@ body {
 }
 
 .tab-btn {
+  flex: 1;
   border: none;
   background: none;
-  padding: 4px 12px;
+  padding: 4px 4px;
   font-size: 11px;
   font-weight: 500;
   color: var(--text-secondary);
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .tab-btn.active {

@@ -18,6 +18,7 @@
       <div class="tabs">
         <button class="tab-btn active" data-tab="facebook">Facebook</button>
         <button class="tab-btn" data-tab="youtube">YouTube</button>
+        <button class="tab-btn" data-tab="twitter">X (Twitter)</button>
       </div>
     </header>
 
@@ -69,6 +70,34 @@
           <h3>💡 Hướng dẫn YouTube</h3>
           <ol>
             <li>Mở video trên YouTube</li>
+            <li>Extension tự động lấy link</li>
+            <li>Nhấn nút để tải về</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Twitter Tab -->
+      <div id="tab-twitter" class="tab-content">
+        <div class="card status-card">
+          <div class="status-icon" id="tw-status-icon">🐦</div>
+          <div class="status-text" id="tw-status-text">Mở X/Twitter để tải</div>
+        </div>
+
+        <div class="input-group">
+          <input type="text" id="tw-input" placeholder="Dán link X/Twitter vào đây..." class="input-field">
+        </div>
+
+        <button class="btn-download" id="tw-download-btn">
+          <span class="btn-icon-inner">⬇️</span>
+          <span>Tải Video X</span>
+        </button>
+
+        <div class="result-container" id="tw-result"></div>
+
+        <div class="card instructions-card">
+          <h3>💡 Hướng dẫn X / Twitter</h3>
+          <ol>
+            <li>Mở bài đăng video trên X</li>
             <li>Extension tự động lấy link</li>
             <li>Nhấn nút để tải về</li>
           </ol>

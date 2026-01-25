@@ -14,6 +14,8 @@
     "*://*.facebook.com/*",
     "*://*.fbcdn.net/*",
     "*://*.youtube.com/*",
+    "*://*.x.com/*",
+    "*://*.twitter.com/*",
     "*://co.wuk.sh/*"
   ],
   "action": {
