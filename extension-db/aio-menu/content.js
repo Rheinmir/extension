@@ -1315,3 +1315,30 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
   return true;
 });
+
+// ==========================================
+// FB Invisible Text Config Sync
+// ==========================================
+if (
+  window.location.hostname.includes("facebook.com") ||
+  window.location.hostname.includes("messenger.com")
+) {
+  function syncFbInvisibleSettings() {
+    if (typeof chrome !== "undefined" && chrome.storage) {
+      chrome.storage.local.get(["fbInvisibleIdx"], (result) => {
+        const enabled = result.fbInvisibleIdx !== false; // Default true
+        window.postMessage({ type: "FB_INVISIBLE_CONFIG", enabled }, "*");
+      });
+    }
+  }
+
+  // Initial sync
+  syncFbInvisibleSettings();
+
+  // Listen for changes
+  chrome.storage.onChanged.addListener((changes, namespace) => {
+    if (namespace === "local" && changes.fbInvisibleIdx) {
+      syncFbInvisibleSettings();
+    }
+  });
+}

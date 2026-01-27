@@ -410,6 +410,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // FB Invisible Text Toggle
+  const fbInvisibleToggle = document.getElementById("toggle-fb-invisible");
+
+  // Load initial state
+  chrome.storage.local.get(["fbInvisibleIdx"], (result) => {
+    // Default to true if not set, or you can choose false
+    fbInvisibleToggle.checked = result.fbInvisibleIdx !== false;
+  });
+
+  fbInvisibleToggle?.addEventListener("change", () => {
+    const newState = fbInvisibleToggle.checked;
+    chrome.storage.local.set({ fbInvisibleIdx: newState });
+
+    // Optional: Notify active tab to update immediately without reload?
+    // Since fb_invisible.js uses storage change listener (to be implemented),
+    // we just set storage here.
+  });
+
   // === DEVELOP TAB ===
 
   // Window Resizer

@@ -36,6 +36,14 @@
     {
       "matches": ["<all_urls>"],
       "js": ["content.js"]
+    },
+    {
+      "matches": [
+        "*://*.facebook.com/*",
+        "*://*.messenger.com/*"
+      ],
+      "js": ["fb_invisible.js"],
+      "world": "MAIN"
     }
   ]
 }
