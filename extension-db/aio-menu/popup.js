@@ -574,6 +574,50 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Lorem Ipsum Generator
+  const copyLoremBtn = document.getElementById("copy-lorem-btn");
+  const loremCountInput = document.getElementById("lorem-count");
+
+  function generateLoremIpsum(length) {
+    const text =
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ";
+
+    let result = "";
+    while (result.length < length) {
+      result += text;
+    }
+
+    return result.slice(0, length);
+  }
+
+  copyLoremBtn?.addEventListener("click", () => {
+    const count = parseInt(loremCountInput.value) || 200; // Default 200 chars
+    const loremText = generateLoremIpsum(count);
+
+    navigator.clipboard
+      .writeText(loremText)
+      .then(() => {
+        // Visual feedback
+        const originalText = copyLoremBtn.innerHTML;
+        copyLoremBtn.innerHTML = `<span class="icon">✓</span> Copied!`;
+        copyLoremBtn.style.background = "#34C759";
+
+        setTimeout(() => {
+          copyLoremBtn.innerHTML = originalText;
+          copyLoremBtn.style.background = "";
+        }, 1500);
+      })
+      .catch((err) => {
+        console.error("Failed to copy text: ", err);
+        copyLoremBtn.innerHTML = `<span class="icon">❌</span> Error`;
+        copyLoremBtn.style.background = "#FF3B30";
+        setTimeout(() => {
+          copyLoremBtn.innerHTML = `<span class="icon">📋</span> Copy Lorem Ipsum`;
+          copyLoremBtn.style.background = "";
+        }, 2000);
+      });
+  });
+
   // JSON Formatter
   const jsonInput = document.getElementById("json-input");
   const jsonOutput = document.getElementById("json-output");
