@@ -8,7 +8,10 @@
     "scripting",
     "downloads",
     "cookies",
-    "tabs"
+    "tabs",
+    "offscreen",
+    "tabCapture",
+    "storage"
   ],
   "host_permissions": [
     "*://*.facebook.com/*",
@@ -16,7 +19,7 @@
     "*://*.youtube.com/*",
     "*://*.x.com/*",
     "*://*.twitter.com/*",
-    "*://co.wuk.sh/*"
+    "*://*/*"
   ],
   "action": {
     "default_popup": "popup.html",

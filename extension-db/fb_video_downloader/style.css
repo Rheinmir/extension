@@ -256,6 +256,37 @@ body {
   gap: 8px;
 }
 
+.api-settings {
+  text-align: left;
+  margin-bottom: 8px;
+  padding: 8px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border: 1px solid #eee;
+}
+
+.api-label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: #555;
+  font-size: 11px;
+}
+
+.api-input {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 12px;
+  box-sizing: border-box; /* Important for padding */
+}
+
+.api-input:focus {
+  border-color: #4A90E2;
+  outline: none;
+}
+
 .error-hints {
   margin-top: 8px;
   font-size: 11px;

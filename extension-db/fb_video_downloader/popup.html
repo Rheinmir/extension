@@ -64,6 +64,11 @@
           <span>Tải Video YouTube</span>
         </button>
 
+        <button class="btn-download btn-record" id="yt-record-btn" style="margin-top: 10px; background: #e74c3c;">
+          <span class="btn-icon-inner">🎥</span>
+          <span>Quay màn hình (Stream)</span>
+        </button>
+
         <div class="result-container" id="yt-result"></div>
 
         <div class="card instructions-card">
@@ -92,6 +97,11 @@
           <span>Tải Video X</span>
         </button>
 
+        <button class="btn-download btn-record" id="tw-record-btn" style="margin-top: 10px; background: #e74c3c;">
+          <span class="btn-icon-inner">🎥</span>
+          <span>Quay màn hình (Stream)</span>
+        </button>
+
         <div class="result-container" id="tw-result"></div>
 
         <div class="card instructions-card">
@@ -107,7 +117,14 @@
 
     <!-- Footer -->
     <footer class="footer">
-      <p>React Fiber + Graph API</p>
+      <div class="api-settings">
+        <label for="api-url" class="api-label">Cobalt API Server:</label>
+        <input type="text" id="api-url" class="api-input" placeholder="https://api.cobalt.tools">
+        <div style="font-size: 10px; color: #888; margin-top: 4px;">
+          Nếu link tải lỗi, hãy tìm server mới tại <a href="#" id="find-server-btn" style="color: #4A90E2; text-decoration: none;">cobalt.directory</a>
+        </div>
+      </div>
+      <p style="margin-top: 10px;">React Fiber + Graph API</p>
     </footer>
   </div>
 

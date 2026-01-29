@@ -1,11 +1,41 @@
 /**
  * FB Video Downloader - Background v6
  * Uses Facebook Graph API + Cookies (like Easy Download)
+ * Handles Background Recording via Offscreen Document
  */
 
 let cUser = null;
 let xs = null;
 let accessToken = null;
+let recordingTabId = null;
+
+// Ensure offscreen document exists
+async function setupOffscreenDocument(path) {
+  const offscreenUrl = chrome.runtime.getURL(path);
+  const existingContexts = await chrome.runtime.getContexts({
+    contextTypes: ["OFFSCREEN_DOCUMENT"],
+    documentUrls: [offscreenUrl],
+  });
+
+  if (existingContexts.length > 0) {
+    return;
+  }
+
+  // Create offscreen document
+  if (creating) {
+    await creating;
+  } else {
+    creating = chrome.offscreen.createDocument({
+      url: path,
+      reasons: ["USER_MEDIA"],
+      justification: "Recording tab video stream",
+    });
+    await creating;
+    creating = null;
+  }
+}
+
+let creating; // Promise keeper for offscreen creation
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "getVideoByGraphApi") {
@@ -35,7 +65,101 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     }
     return true;
   }
+
+  if (message.action === "getRecordingStatus") {
+    sendResponse({
+      isRecording: !!recordingTabId,
+      recordingTabId: recordingTabId,
+    });
+    return true;
+  }
+
+  // === Recording Handlers ===
+  if (message.action === "startRecording") {
+    handleStartRecording(sender.tab?.id || message.tabId)
+      .then((res) => sendResponse(res))
+      .catch((err) => sendResponse({ success: false, error: err.message }));
+    return true;
+  }
+
+  if (message.action === "stopRecording") {
+    handleStopRecording()
+      .then((res) => sendResponse(res))
+      .catch((err) => sendResponse({ success: false, error: err.message }));
+    return true;
+  }
 });
+
+// === Recording Functions ===
+async function handleStartRecording(tabId) {
+  try {
+    if (!tabId) throw new Error("No active tab found");
+
+    await setupOffscreenDocument("offscreen.html");
+
+    // Get Media Stream ID
+    const streamId = await new Promise((resolve, reject) => {
+      chrome.tabCapture.getMediaStreamId({ targetTabId: tabId }, (streamId) => {
+        if (chrome.runtime.lastError) {
+          return reject(chrome.runtime.lastError);
+        }
+        resolve(streamId);
+      });
+    });
+
+    // Send to offscreen
+    const response = await chrome.runtime.sendMessage({
+      type: "startRecording",
+      target: "offscreen",
+      action: "startRecording",
+      streamId: streamId,
+      data: { tabId: tabId },
+    });
+
+    if (response?.success) {
+      recordingTabId = tabId;
+      return { success: true };
+    } else {
+      throw new Error(response?.error || "Failed to start recorder");
+    }
+  } catch (e) {
+    console.error("Recording error:", e);
+    return { success: false, error: e.message };
+  }
+}
+
+async function handleStopRecording() {
+  try {
+    const response = await chrome.runtime.sendMessage({
+      type: "stopRecording",
+      target: "offscreen",
+      action: "stopRecording",
+    });
+
+    if (response?.success && response.url) {
+      // Initiate download of the recorded blob
+      const timestamp = new Date()
+        .toISOString()
+        .slice(0, 19)
+        .replace(/[:-]/g, "");
+      const filename = `recording_${timestamp}.webm`;
+
+      const downloadId = await chrome.downloads.download({
+        url: response.url,
+        filename: filename,
+        saveAs: true,
+      });
+
+      recordingTabId = null;
+      return { success: true };
+    }
+
+    return { success: false, error: "No recording data returned" };
+  } catch (e) {
+    console.error("Stop recording error:", e);
+    return { success: false, error: e.message };
+  }
+}
 
 /**
  * Get cookies from Facebook
