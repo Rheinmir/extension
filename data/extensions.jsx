@@ -6,7 +6,7 @@ export const EXTENSIONS = [
     id: "aio-menu",
     name: "DevPower Toolkit",
     description:
-      "Chrome Extension built on Manifest V3. Provides a comprehensive suite of developer utilities directly in the browser popup and interacts with web pages via content scripts.",
+      "All-in-one developer toolkit built on Manifest V3. Features include Color Picker, WhatFont, CSS Viewer, Page Ruler, Tech Stack Detector, QR Generator, Screenshot tool, Timestamp Converter, Link Checker, and more.",
     icon: "Wrench",
     iconColor: "text-purple-500",
     version: "3.1",
@@ -18,7 +18,7 @@ export const EXTENSIONS = [
     id: "fb_video_downloader",
     name: "FB Video Downloader",
     description:
-      "Chrome Extension built on Manifest V3 that enables users to download videos and Reels from Facebook. Uses React Fiber inspection and Facebook Graph API to extract video URLs.",
+      "Multi-platform video downloader built on Manifest V3. Enables users to download videos and Reels from Facebook, YouTube, and X (Twitter). Uses advanced extraction methods for high-quality downloads.",
     icon: "Video",
     iconColor: "text-blue-500",
     version: "4.0",
